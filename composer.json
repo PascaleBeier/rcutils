@@ -1,0 +1,21 @@
+{
+    "name": "pascalebeier/rcutil",
+    "description": "Command Line Utilities",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Pascale Beier",
+            "email": "mail@pascalebeier.de"
+        }
+    ],
+
+    "minimum-stability": "stable",
+    "require": {
+        "intervention/image": "^2.3",
+        "symfony/console": "^3.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
+}
