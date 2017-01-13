@@ -30,18 +30,30 @@ use Symfony\Component\Console\ {
         ->addArgument('width', InputArgument::REQUIRED, 'Output Image width')
         ->setCode(function(InputInterface $input, OutputInterface $output) {
             $io = new SymfonyStyle($input, $output);
-
             $io->section('image:resize');
 
             Image::configure(['driver' => 'gd']);
-            Image::make($input->getArgument('input'))
-                ->resize($input->getArgument('width'),null, function ($constraint) {
-                    $constraint->aspectRatio();
-                })
-                ->save($input->getArgument('output'));
 
-            $io->success('Resized '.$input->getArgument('input').' to '.$input->getArgument('width')
-            .' and saved it to '.$input->getArgument('output'));
+            $io->progressStart(3);
+            $io->writeln(' Opening '.$input->getArgument('input'). ' ...');
+
+            $inputImage = Image::make($input->getArgument('input'));
+
+            $io->progressAdvance();
+            $io->writeln(' Resizing source to '.$input->getArgument('width'). ' ...');
+
+            $resizedImage = $inputImage->resize($input->getArgument('width'),null, function ($constraint) {
+                    $constraint->aspectRatio();
+            });
+
+            $io->progressAdvance();
+            $io->writeln(' Saving modified image to '.$input->getArgument('output').' ...');
+
+            $resizedImage->save($input->getArgument('output'));
+            $io->progressAdvance();
+            $io->writeln(' Done!');
+
+            $io->success('Image Saved!');
         })
     ->getApplication()
     ->run();
