@@ -9,7 +9,7 @@
             "email": "mail@pascalebeier.de"
         }
     ],
-
+    "bin": ["bin/rcutil"],
     "minimum-stability": "stable",
     "require": {
         "intervention/image": "^2.3",
